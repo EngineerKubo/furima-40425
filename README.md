@@ -52,15 +52,15 @@
 
 ## shipping_addresses table
 
-| Column           | Type            | Options                        |
-| ---------------- | --------------- | ------------------------------ |
-| order_historie   | references      | null: false, foreign_key: true |
-| post_code        | string          | null: false                    |
-| prefecture_id    | order_histories | null: false                    |
-| municipality     | string          | null: false                    |
-| street_address   | string          | null: false                    |
-| building_name    | string          |                                |
-| telephone_number | string          | null: false                    |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| order_history    | references | null: false, foreign_key: true |
+| post_code        | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| municipality     | string     | null: false                    |
+| street_address   | string     | null: false                    |
+| building_name    | string     |                                |
+| telephone_number | string     | null: false                    |
 
 ### Association
 
