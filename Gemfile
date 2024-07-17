@@ -79,6 +79,6 @@ group :production do
   gem 'pg'
 end
 
-group :production do
-  gem 'active_hash'
-end
+gem 'active_hash'
+
+gem 'devise'
