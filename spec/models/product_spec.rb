@@ -32,34 +32,34 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Description can't be blank")
       end
       # 商品のカテゴリー
-      it 'category_idが空では登録できない' do
-        @product.category_id = nil
+      it 'category_idが「---」では登録できない' do
+        @product.category_id = 0
         @product.valid?
-        expect(@product.errors.full_messages).to include("Category can't be blank")
+        expect(@product.errors.full_messages).to include("Category must be other than 0")
       end
       # 商品の状態
-      it 'condition_idが空では登録できない' do
-        @product.condition_id = nil
+      it 'condition_idが「---」では登録できない' do
+        @product.condition_id = 0
         @product.valid?
-        expect(@product.errors.full_messages).to include("Condition can't be blank")
+        expect(@product.errors.full_messages).to include("Condition must be other than 0")
       end
       # 配送料の負担
-      it 'shipping_charge_idが空では登録できない' do
-        @product.shipping_charge_id = nil
+      it 'shipping_charge_idが「---」では登録できない' do
+        @product.shipping_charge_id = 0
         @product.valid?
-        expect(@product.errors.full_messages).to include("Shipping charge can't be blank")
+        expect(@product.errors.full_messages).to include("Shipping charge must be other than 0")
       end
       # 発送元の地域
-      it 'prefecture_idが空では登録できない' do
-        @product.prefecture_id = nil
+      it 'prefecture_idが「---」では登録できない' do
+        @product.prefecture_id = 0
         @product.valid?
-        expect(@product.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@product.errors.full_messages).to include("Prefecture must be other than 0")
       end
       # 発送までの日数
-      it 'days_to_shipping_idが空では登録できない' do
-        @product.days_to_shipping_id = nil
+      it 'days_to_shipping_idが「---」では登録できない' do
+        @product.days_to_shipping_id = 0
         @product.valid?
-        expect(@product.errors.full_messages).to include("Days to shipping can't be blank")
+        expect(@product.errors.full_messages).to include("Days to shipping must be other than 0")
       end
       # 販売価格
       it 'priceが空では登録できない' do
@@ -86,6 +86,11 @@ RSpec.describe Product, type: :model do
         @product.price = 300.5
         @product.valid?
         expect(@product.errors.full_messages).to include("Price は¥300~¥9,999,999の間のみ保存可能です")
+      end
+      it 'ユーザーが紐づいていないと保存できない' do
+        @product.user = nil
+        @product.valid?
+        expect(@product.errors.full_messages).to include("User must exist")
       end
     end
   end
