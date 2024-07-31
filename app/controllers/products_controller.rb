@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :authenticate_user!, only: [:edit, :update]
   before_action :set_product, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
 
@@ -22,11 +21,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    # @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
+    # @product = Product.find(params[:id])
   end
 
   def update
