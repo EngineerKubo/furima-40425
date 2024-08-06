@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :products
-- has_many :order_histories
+- has_many :orders
 
 ## products table
 
@@ -35,9 +35,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :order_history
+- has_one :order
 
-## order_histories table
+## orders table
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
@@ -48,13 +48,13 @@
 
 - belongs_to :user
 - belongs_to :product
-- has_one :shipping_information
+- has_one :shipping_address
 
 ## shipping_addresses table
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| order_history    | references | null: false, foreign_key: true |
+| order            | references | null: false, foreign_key: true |
 | post_code        | string     | null: false                    |
 | prefecture_id    | integer    | null: false                    |
 | municipality     | string     | null: false                    |
@@ -64,4 +64,4 @@
 
 ### Association
 
-- belongs_to :order_history
+- belongs_to :order
