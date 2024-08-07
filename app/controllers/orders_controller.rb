@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_shipping_address = OrderShippingAddress.new
     @product = Product.find(params[:product_id])
   end
@@ -12,6 +13,7 @@ class OrdersController < ApplicationController
       @order_shipping_address.save
       redirect_to root_path
     else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
     end
   end
