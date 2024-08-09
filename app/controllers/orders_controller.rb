@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :sold_out, only: [:index, :create]
+
+
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_shipping_address = OrderShippingAddress.new
@@ -19,6 +23,13 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def sold_out
+    @product = Product.find(params[:product_id])
+    if @product.order.present? || @product.user_id == current_user.id
+      redirect_to root_path
+    end
+  end
 
   def order_shipping_address_params
     params.require(:order_shipping_address).permit(:post_code, :prefecture_id, :municipality, :street_address, :building_name, :telephone_number).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
