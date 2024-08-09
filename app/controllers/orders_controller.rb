@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
 
   def create
     @order_shipping_address = OrderShippingAddress.new(order_shipping_address_params)
-    @product = Product.find(params[:product_id])
     if @order_shipping_address.valid?
       pay_item
       @order_shipping_address.save
