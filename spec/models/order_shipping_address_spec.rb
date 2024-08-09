@@ -56,8 +56,23 @@ RSpec.describe OrderShippingAddress, type: :model do
         expect(@order_shipping_address.errors[:telephone_number]).to include("can't be blank")
       end
 
-      it 'telephone_numberが半角数字の10桁または11桁でないと保存できないこと' do
+      # 'telephone_numberが9桁以下では登録できないこと
+      it 'telephone_numberが9桁以下では登録できないこと' do
         @order_shipping_address.telephone_number = '123456789'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors[:telephone_number]).to include('is invalid')
+      end
+
+      # 'telephone_numberが12桁以上では登録できないこと
+      it 'telephone_numberが12桁以上では登録できないこと' do
+        @order_shipping_address.telephone_number = '123456789012'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors[:telephone_number]).to include('is invalid')
+      end
+
+      # 'telephone_numberが半角数字以外が含まれている場合、登録できないこと
+      it 'telephone_numberに半角数字以外が含まれている場合、登録できないこと' do
+        @order_shipping_address.telephone_number = '123-456-7890'
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors[:telephone_number]).to include('is invalid')
       end

@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_shipping_address = OrderShippingAddress.new
-    @product = Product.find(params[:product_id])
   end
 
   def create
