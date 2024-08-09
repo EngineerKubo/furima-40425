@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:edit, :update, :show, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :redirect_if_sold, only: [:edit, :update]
 
   def index
     @products = Product.order("created_at DESC")
@@ -48,6 +49,12 @@ class ProductsController < ApplicationController
   def correct_user
     unless current_user == @product.user
       redirect_to products_path, alert: '他のユーザーの投稿を編集することはできません。'
+    end
+  end
+
+  def redirect_if_sold
+    if @product.order.present?
+      redirect_to root_path, alert: '売却済み商品の編集はできません。'
     end
   end
 
